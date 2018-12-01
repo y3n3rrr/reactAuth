@@ -1,30 +1,33 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import {CardSection, Input, Button} from '../ComponentHelpers'
+import {connect} from 'react-redux';
+import {changeUsername, changePassword} from '../../Actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
+
+  }
+  onChangeUsername = (text) => {
+    this.props.changeUsername(text)
   }
 
-  onChangeUsername = (text) =>    {
-      console.log(text)
-}
-
 onChangePassword = (text) =>    {
-    console.log(text)
+  this.props.changePassword(text)
 }
 
   buttonClickHandler = () =>    {
-      this.setState({username:'', password:''})
+
   }
+  
   render() {
+    console.log("RERENDER!!!!!"+this.props.username)
     return (
       <View>
           <CardSection>
             <Input label="Kullanıcı Adı:" placeholder="Adinizi giriniz"
             onChangeText ={(text)=>this.onChangeUsername(text)}/>
-
           </CardSection>
           <CardSection>
           <Input label="Şifre:" 
@@ -41,3 +44,10 @@ onChangePassword = (text) =>    {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { username, password } = state;
+  return { username, password };
+}
+
+export default connect(mapStateToProps, {changeUsername, changePassword})(Login)
