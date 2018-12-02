@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { CardSection, Input, Button, Card } from '../ComponentHelpers'
+import { CardSection, Input, Button, Card, Spinner } from '../ComponentHelpers'
 import { connect } from 'react-redux';
 import { changeUsername, changePassword, signInUser,showLoader } from '../../Actions';
 
@@ -41,15 +41,15 @@ class Login extends Component {
             onChangeText={(text) => this.onChangePassword(text)}
             secureTextEntry />
         </CardSection>
+        <CardSection>
         {
-          
-          !this.props.isLoading ? <CardSection>
+          !this.props.isLoading ? 
           <Button onPress={(e) => this.buttonClickHandler(e)}>
             Oturum Ac
           </Button>
-        </CardSection> : null
+         : <Spinner size={30} />
         }
-          
+        </CardSection>
         </Card>
 
       </View>

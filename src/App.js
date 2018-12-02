@@ -5,7 +5,7 @@ import ReduxThunk from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
 import Login from './Components/Authorization'
 import reducers from './reducers';
-import firebase from 'firebase';
+import firebase from '@firebase/app';
 
 class App extends Component {
     componentWillMount() {
