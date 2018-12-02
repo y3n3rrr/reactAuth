@@ -6,6 +6,7 @@ import {createStore, applyMiddleware} from 'redux';
 import Login from './Components/Authorization'
 import reducers from './reducers';
 import firebase from '@firebase/app';
+import Router from './Router'
 
 class App extends Component {
     componentWillMount() {
@@ -23,9 +24,7 @@ var config = {
     render() {
         return (
             <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-                <View style={Platform.OS=="ios" ? {paddingTop:20} :{} }>
-                    <Login />
-                </View>
+                <Router />
             </Provider>
         );
     }

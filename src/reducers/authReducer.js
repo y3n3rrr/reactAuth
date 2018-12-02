@@ -1,4 +1,11 @@
-import { USERNAME_CHANGE, PASSWORD_CHANGE, AUTH_SUCCESS, AUTH_FAIL,SHOW_LOADING } from '../Actions/types';
+import { USERNAME_CHANGE, 
+    PASSWORD_CHANGE, 
+    AUTH_SUCCESS, 
+    AUTH_FAIL, 
+    REGISTER_USER_SUCCESS,
+    REGISTER_USER_FAIL, 
+    SHOW_LOADING
+} from '../Actions/types';
 const INITIAL_STATE = {username:'', password:'', isAuth: false, errorMessage:'', isLoading:false }
 
 export default authReducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +18,10 @@ export default authReducer = (state = INITIAL_STATE, action) => {
             return { ...state, isAuth: true, errorMessage:'', isLoading:false }
         case AUTH_FAIL:
             return { ...state, isAuth: false, errorMessage: action.payload, isLoading:false }
+        case REGISTER_USER_SUCCESS:
+            return { ...state, errorMessage: '', isLoading:false }
+        case REGISTER_USER_FAIL:
+            return { ...state, errorMessage: action.payload, isLoading:false }
         case SHOW_LOADING:
             return { ...state, isLoading: action.payload  }
         default:
