@@ -1,2 +1,5 @@
 export const USERNAME_CHANGE = "USERNAME_CHANGE"; 
 export const PASSWORD_CHANGE = "PASSWORD_CHANGE"; 
+export const AUTH_PROCESS = "AUTH_PROCESS"; 
+export const AUTH_FAIL = "AUTH_FAIL"; 
+export const SHOW_LOADING = "SHOW_LOADING"; 

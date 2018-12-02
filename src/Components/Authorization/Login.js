@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import {CardSection, Input, Button} from '../ComponentHelpers'
-import {connect} from 'react-redux';
-import {changeUsername, changePassword} from '../../Actions';
+import { CardSection, Input, Button, Card } from '../ComponentHelpers'
+import { connect } from 'react-redux';
+import { changeUsername, changePassword, signInUser,showLoader } from '../../Actions';
 
 class Login extends Component {
   constructor(props) {
@@ -13,41 +13,53 @@ class Login extends Component {
     this.props.changeUsername(text)
   }
 
-onChangePassword = (text) =>    {
-  this.props.changePassword(text)
-}
-
-  buttonClickHandler = () =>    {
-
+  onChangePassword = (text) => {
+    this.props.changePassword(text)
   }
-  
+
+  buttonClickHandler = () => {
+    const { username, password } = this.props;
+    this.props.signInUser(username, password)
+  }
+
   render() {
-    console.log("RERENDER!!!!!"+this.props.username)
+    if (this.props.errorMessage) {
+      alert(this.props.errorMessage)
+    }
     return (
       <View>
+        <Card> 
           <CardSection>
-            <Input label="Kullanıcı Adı:" placeholder="Adinizi giriniz"
-            onChangeText ={(text)=>this.onChangeUsername(text)}/>
-          </CardSection>
-          <CardSection>
-          <Input label="Şifre:" 
-          placeholder="Şifrenizi giriniz" 
-          onChangeText ={(text)=>this.onChangePassword(text)}
-          secureTextEntry/>
-          </CardSection>
-          <CardSection>
-            <Button onPress={(e)=> this.buttonClickHandler(e)}>
-                Oturum Ac
-            </Button>
-          </CardSection>
+          <Input label="Kullanıcı Adı:" placeholder="Adinizi giriniz"
+            onChangeText={(text) => this.onChangeUsername(text)} />
+        </CardSection>
+
+
+        <CardSection>
+          <Input label="Şifre:"
+            placeholder="Şifrenizi giriniz"
+            onChangeText={(text) => this.onChangePassword(text)}
+            secureTextEntry />
+        </CardSection>
+        {
+          
+          !this.props.isLoading ? <CardSection>
+          <Button onPress={(e) => this.buttonClickHandler(e)}>
+            Oturum Ac
+          </Button>
+        </CardSection> : null
+        }
+          
+        </Card>
+
       </View>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { username, password } = state;
-  return { username, password };
+  const { username, password, errorMessage, isLoading } = state.isAuth
+  return {isLoading, username, password, errorMessage}
 }
 
-export default connect(mapStateToProps, {changeUsername, changePassword})(Login)
+export default connect(mapStateToProps, { changeUsername, changePassword, signInUser,showLoader })(Login)
